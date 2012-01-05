@@ -1,8 +1,14 @@
 'use strict';
 
-(function(angular) {
+(function(window) {
+  // using our own namespace
+  var app = window.tunes = {controller: {}, factory: {}};
 
-  angular.controller.TunesCtrl = function($http, player) {
+  app.init = function($locationProvider) {
+    // configure your app
+  };
+
+  app.controller.TunesCtrl = function($http, player) {
     var scope = this;
 
     scope.player = player;
@@ -11,11 +17,11 @@
       scope.albums = body;
     });
   }
-  angular.controller.TunesCtrl.$inject = ['$http', 'player'];
+  app.controller.TunesCtrl.$inject = ['$http', 'player'];
 
 
   // player SERVICE
-  angular.factory.player = function(audio) {
+  app.factory.player = function(audio) {
     var player,
         playlist = [],
         paused = false,
@@ -103,8 +109,8 @@
 
 
   // extract the audio for making the player easier to test
-  angular.factory.audio = function($document) {
+  app.factory.audio = function($document) {
     var audio = $document[0].createElement('audio');
     return audio;
   };
-})(angular);
+})(window);
